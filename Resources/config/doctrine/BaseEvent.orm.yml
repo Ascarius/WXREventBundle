@@ -1,0 +1,35 @@
+WXR\EventBundle\Entity\BaseEvent:
+    type: mappedSuperclass
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        enabled:
+            type: boolean
+        slug:
+            length: 255
+            gedmo:
+                slug: { fields: [ title ] }
+        title:
+            length: 255
+        content:
+            type: text
+        excerpt:
+            type: text
+            nullable: true
+        startAt:
+            column: start_at
+            type: datetime
+        endAt:
+            column: end_at
+            type: datetime
+        createdAt:
+            column: created_at
+            type: datetime
+        updatedAt:
+            column: updated_at
+            type: datetime
+    lifecycleCallbacks:
+        preUpdate: [ onPreUpdate ]

@@ -1,0 +1,32 @@
+{
+    "name": "wxr/event-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony WXREventBundle",
+    "keywords": [ "events" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lionel Gaillard",
+            "email": "lionel.gaillard@wxrstudios.com",
+            "homepage": "http://wxrstudios.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "2.1.*",
+        "wxr/common-bundle": "dev-master",
+        "wxr/category-bundle": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "WXR\\EventBundle": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "target-dir": "WXR/EventBundle"
+}

@@ -1,0 +1,88 @@
+{# Categories comma separated list #}
+{% macro categories_list(categories) %}
+    {%- spaceless %}
+        {% for category in categories %}
+    <a href="{{ path('wxr_event_category_show', { slug: category.slug }) }}">{{ category.name }}</a>{{ loop.last ? '' : ', ' }}
+        {% endfor %}
+    {% endspaceless -%}
+{% endmacro %}
+
+{# Tag comma separated list #}
+{% macro tags_list(tags) %}
+    {%- spaceless %}
+        {% for tag in tags %}
+    <a href="{{ path('wxr_event_tag_show', { slug: tag.slug }) }}">{{ tag.name }}</a>{{ loop.last ? '' : ', ' }}
+        {% endfor %}
+    {% endspaceless -%}
+{% endmacro %}
+
+{# Events list #}
+{% macro events_list(events) %}
+    <ul class="unstyled">
+    {% for event in events %}
+        <li>
+            <h3><a href="{{ path('wxr_event_event_show', { slug: event.slug }) }}">{{ event.title }}</a></h3>
+            <p><span class="label">{{ 'layout.start_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startAt|date('Y-m-d H:i') }}</p>
+
+        {% if event.categories is not empty %}
+            <p><span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ _self.categories_list(event.categories) }}</p>
+        {% endif %}
+
+            <p>
+        {% if event.excerpt %}
+                {{ event.excerpt }}
+        {% else %}
+                {{ event.content|striptags|slice(0, 100) }} ...
+        {% endif %}
+            </p>
+        {% if app.security.isGranted('ROLE_ADMIN') %}
+            <div class="btn-toolbar">
+                <a href="{{ path('admin_wxr_event_event_edit', { id: event.id }) }}" class="btn"><i class="icon-pencil"></i> {{ 'layout.edit'|trans({}, 'WXREventBundle') }}</a>
+            </div>
+        {% endif %}
+        {% if not loop.last %}
+            <hr />
+        {% endif %}
+        </li>
+    {% else %}
+        <li>{{ 'layout.no_result'|trans({}, 'WXREventBundle') }}</li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{# Pagination #}
+{% macro pagination(page, pageCount, routeArgs, pageKey) %}
+    {%- spaceless %}
+
+        {%- set route = app.request.attributes.get('_route') -%}
+        {%- set routeArgs = routeArgs|default({}) -%}
+        {%- set pageKey = pageKey|default('page') -%}
+
+        {% if pageCount > 1 %}
+    <div class="pagination">
+        <ul>
+            {% if page > 1 %}
+            <li><a href="{{ path(route, routeArgs|merge({ page: page - 1 })) }}">«</a></li>
+            {% else %}
+            <li class="disabled"><a>«</a></li>
+            {% endif %}
+
+            {% for num in 1..pageCount %}
+                {% if num == page %}
+            <li class="active"><a>{{ num }}</a></li>
+                {% else %}
+            <li><a href="{{ path(route, routeArgs|merge({ page: num })) }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page < pageCount %}
+            <li><a href="{{ path(route, routeArgs|merge({ page: page + 1 })) }}">»</a></li>
+            {% else %}
+            <li class="disabled"><a>»</a></li>
+            {% endif %}
+        </ul>
+    </div>
+        {% endif %}
+
+    {% endspaceless -%}
+{% endmacro %}

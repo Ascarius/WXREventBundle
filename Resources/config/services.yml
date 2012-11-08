@@ -1,0 +1,68 @@
+parameters:
+
+    wxr_event.event.class: WXR\EventBundle\Entity\Event
+    wxr_event.event.admin.class: WXR\EventBundle\Admin\Entity\EventAdmin
+    wxr_event.event.manager.class: WXR\EventBundle\Entity\EventManager
+
+    wxr_event.category.class: WXR\EventBundle\Entity\Category
+    wxr_event.category.admin.class: WXR\EventBundle\Admin\Entity\CategoryAdmin
+    wxr_event.category.manager.class: WXR\EventBundle\Entity\CategoryManager
+
+    wxr_event.tag.class: WXR\EventBundle\Entity\Tag
+    wxr_event.tag.admin.class: WXR\EventBundle\Admin\Entity\TagAdmin
+    wxr_event.tag.manager.class: WXR\EventBundle\Entity\TagManager
+
+    wxr_event.translation_domain: WXREventBundle
+
+services:
+
+    wxr_event.event.manager:
+        class: %wxr_event.event.manager.class%
+        arguments: [@doctrine.orm.entity_manager, %wxr_event.event.class%]
+    wxr_event.event.admin:
+        class: %wxr_event.event.admin.class%
+        arguments: [ ~, %wxr_event.event.class%, SonataAdminBundle:CRUD ]
+        calls:
+            - [ setTranslationDomain, [ %wxr_event.translation_domain% ] ]
+        tags:
+            -
+                name: sonata.admin
+                manager_type: orm
+                group: wxr_event
+                label: events
+                label_catalogue: %wxr_event.translation_domain%
+                label_translator_strategy: sonata.admin.label.strategy.underscore
+
+    wxr_event.category.manager:
+        class: %wxr_event.category.manager.class%
+        arguments: [@doctrine.orm.entity_manager, %wxr_event.category.class%, %wxr_event.event.class%]
+    wxr_event.category.admin:
+        class: %wxr_event.category.admin.class%
+        arguments: [ ~, %wxr_event.category.class%, SonataAdminBundle:CRUD ]
+        calls:
+            - [ setTranslationDomain, [ %wxr_event.translation_domain% ] ]
+        tags:
+            -
+                name: sonata.admin
+                manager_type: orm
+                group: wxr_event
+                label: categories
+                label_catalogue: %wxr_event.translation_domain%
+                label_translator_strategy: sonata.admin.label.strategy.underscore
+
+    wxr_event.tag.manager:
+        class: %wxr_event.tag.manager.class%
+        arguments: [@doctrine.orm.entity_manager, %wxr_event.tag.class%]
+    wxr_event.tag.admin:
+        class: %wxr_event.tag.admin.class%
+        arguments: [ ~, %wxr_event.tag.class%, SonataAdminBundle:CRUD ]
+        calls:
+            - [ setTranslationDomain, [ %wxr_event.translation_domain% ] ]
+        tags:
+            -
+                name: sonata.admin
+                manager_type: orm
+                group: wxr_event
+                label: tags
+                label_catalogue: %wxr_event.translation_domain%
+                label_translator_strategy: sonata.admin.label.strategy.underscore

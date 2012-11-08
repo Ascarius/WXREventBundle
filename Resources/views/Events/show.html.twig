@@ -1,0 +1,57 @@
+{% extends 'WXRCommonBundle::layout.html.twig' %}
+
+{% import 'WXREventBundle::event_macros.html.twig' as event_macros %}
+
+{##
+ # @param WXR\EventBundle\Model\PostInterface[] events
+ # @param WXR\EventBundle\Model\PostInterface previous
+ # @param WXR\EventBundle\Model\PostInterface next
+ #}
+
+{% block title %}{{ event.title }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    <div class="btn-toolbar">
+        <a href="{{ path('wxr_event_event_list') }}" class="btn"><i class="icon-list"></i> {{ 'layout.events'|trans({}, 'WXREventBundle') }}</a>
+    </div>
+
+    <div class="page-header">
+        <h1>{{ event.title }}</h1>
+    </div>
+
+    <p><span class="label">{{ 'layout.start_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startAt|date('Y-m-d H:i') }}</p>
+
+    <p><span class="label">{{ 'layout.end_at'|trans({}, 'WXREventBundle') }}</span> {{ event.endAt|date('Y-m-d H:i') }}</p>
+
+    {% if event.categories is not empty %}
+    <p><span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ event_macros.categories_list(event.categories) }}</p>
+    {% endif %}
+
+    {% if event.tags is not empty %}
+    <p><span class="label">{{ 'layout.tags'|trans({}, 'WXREventBundle') }}</span> {{ event_macros.tags_list(event.tags) }}</p>
+    {% endif %}
+
+    <p>
+    {{ event.content|raw|nl2br }}
+    </p>
+
+    {% if app.security.isGranted('ROLE_ADMIN') %}
+    <div class="btn-toolbar">
+        <a href="{{ path('admin_wxr_event_event_edit', { id: event.id }) }}" class="btn"><i class="icon-pencil"></i> {{ 'layout.edit'|trans({}, 'WXREventBundle') }}</a>
+    </div>
+    {% endif %}
+
+    {% if previous or next %}
+    <div class="pagination">
+        <ul>
+            {% if previous %}
+            <li><a href="{{ path('wxr_event_event_show', { slug: previous.slug }) }}">« {{ previous.title }}</a></li>
+            {% endif %}
+            {% if next %}
+            <li><a href="{{ path('wxr_event_event_show', { slug: next.slug }) }}">{{ next.title }} »</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+{% endblock %}

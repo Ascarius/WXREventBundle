@@ -1,0 +1,38 @@
+WXR\EventBundle\Entity\Event:
+    type: entity
+    table: wxr_event_event
+    indexes:
+        IDX_enabled:
+            columns: [ enabled ]
+        IDX_start_at:
+            columns: [ start_at ]
+        IDX_end_at:
+            columns: [ end_at ]
+    uniqueConstraints:
+        UNIQ_slug:
+            columns: [ slug ]
+    manyToMany:
+        categories:
+            targetEntity: WXR\EventBundle\Entity\Category
+            inversedBy: posts
+            orderBy: { position: ASC, name: ASC }
+            joinTable:
+                name: wxr_event_event_category
+                joinColumns:
+                    post_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    category_id:
+                        referencedColumnName: id
+        tags:
+            targetEntity: WXR\EventBundle\Entity\Tag
+            inversedBy: posts
+            orderBy: { name: ASC }
+            joinTable:
+                name: wxr_event_event_tag
+                joinColumns:
+                    post_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    category_id:
+                        referencedColumnName: id

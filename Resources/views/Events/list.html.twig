@@ -1,0 +1,40 @@
+{% extends 'WXRCommonBundle::layout.html.twig' %}
+
+{% import 'WXREventBundle::event_macros.html.twig' as event_macros %}
+
+{##
+ # @param WXR\EventBundle\Model\EventInterface[] events
+ # @param integer eventCount
+ # @param WXR\EventBundle\Model\EventInterface[] currents
+ # @param integer page
+ # @param integer pageCount
+ #}
+
+{% block title %}{{ 'layout.events'|trans({}, 'WXREventBundle') }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{{ 'layout.events'|trans({}, 'WXREventBundle') }}</h1>
+    </div>
+
+    {% if page == 1 and currents %}
+
+    <div class="well">
+        {{ event_macros.events_list(currents) }}
+    </div>
+
+    {% endif %}
+
+    {{ event_macros.events_list(events) }}
+
+    {% if app.security.isGranted('ROLE_ADMIN') %}
+    <hr />
+    <div class="btn-toolbar">
+        <a href="{{ path('admin_wxr_event_event_create') }}" class="btn"><i class="icon-plus"></i> {{ 'layout.add'|trans({}, 'WXREventBundle') }}</a>
+    </div>
+    {% endif %}
+
+    {{ event_macros.pagination(page, pageCount) }}
+
+{% endblock %}

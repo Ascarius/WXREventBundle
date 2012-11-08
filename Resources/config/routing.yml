@@ -1,0 +1,15 @@
+wxr_event_event_list:
+    pattern: /list/{page}
+    defaults: { _controller: 'WXREventBundle:Events:list', page: 1 }
+
+wxr_event_event_show:
+    pattern: /show/{slug}
+    defaults: { _controller: 'WXREventBundle:Events:show' }
+
+wxr_event_category_show:
+    pattern: /category/{slug}/{page}
+    defaults: { _controller: 'WXREventBundle:Events:category', page: 1 }
+
+wxr_event_tag_show:
+    pattern: /tag/{slug}/{page}
+    defaults: { _controller: 'WXREventBundle:Events:tag', page: 1 }

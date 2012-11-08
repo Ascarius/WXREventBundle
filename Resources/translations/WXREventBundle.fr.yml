@@ -1,0 +1,74 @@
+wxr_event: Evénements
+events: Evénements
+categories: Catégories
+tags: Tags
+
+layout:
+    start_at: Commence le
+    end_at: Fini le
+    events: Evénements
+    categories: Catégories
+    tags: Tags
+    no_result: Aucun résultat
+    add: Ajouter
+    edit: Editer
+
+breadcrumb:
+
+    link_event_list: Evénements
+    link_event_create: Ajouter
+    link_event_edit: Editer
+    link_event_delete: Supprimer
+
+    link_category_list: Catégories d'événements
+    link_category_create: Ajouter
+    link_category_edit: Editer
+    link_category_delete: Supprimer
+
+    link_tag_list: Tags d'événements
+    link_tag_create: Ajouter
+    link_tag_edit: Editer
+    link_tag_delete: Supprimer
+
+list:
+
+    label_title: Titre
+    label_enabled: Activé
+    label_categories: Catégories
+    label_tags: Tags
+    label_start_at: Commence le
+    label_started: Commencé
+    label_end_at: Fini le
+    label_ended: Fini
+    label_in_progress: En cours
+
+    label_name: Nom
+
+filter:
+
+    label_title: Titre
+    label_content: Contenu
+    label_categories: Catégories
+    label_tags: Tags
+    label_start_at: Débût
+
+    label_name: Nom
+
+form:
+
+    group_general: Général
+    group_categories: Catégories
+    group_options: Options
+
+    label_start_at: Commence le
+    label_end_at: Fini le
+    label_title: Titre
+    label_content: Contenu
+    label_excerpt: Extrait
+    label_categories: Catégories
+    label_tags: Tags
+    label_enabled: Activé
+
+    label_name: Nom
+    label_description: Description
+    label_position: Position
