@@ -30,7 +30,7 @@ abstract class EventAdmin extends Admin
                 ->add('endAt')
                 ->add('title')
                 ->add('content', null, array(
-                    'attr' => array('class' => 'wysiwyg', 'rows' => 8)
+                    'attr' => array('data-wysiwyg' => true, 'rows' => 10)
                 ))
                 ->add('excerpt', null, array(
                     'required' => false

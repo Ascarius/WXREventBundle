@@ -62,7 +62,7 @@
     <div class="pagination">
         <ul>
             {% if page > 1 %}
-            <li><a href="{{ path(route, routeArgs|merge({ page: page - 1 })) }}">«</a></li>
+            <li><a href="{{ path(route, routeArgs|merge({ page: page - 1 })) }}">←</a></li>
             {% else %}
             <li class="disabled"><a>«</a></li>
             {% endif %}
@@ -76,7 +76,7 @@
             {% endfor %}
 
             {% if page < pageCount %}
-            <li><a href="{{ path(route, routeArgs|merge({ page: page + 1 })) }}">»</a></li>
+            <li><a href="{{ path(route, routeArgs|merge({ page: page + 1 })) }}">→</a></li>
             {% else %}
             <li class="disabled"><a>»</a></li>
             {% endif %}

@@ -43,7 +43,7 @@ interface EventInterface
     public function clearCategories();
 
     /**
-     * Get category
+     * Get categories
      *
      * @return CategoryInterface[]
      */
@@ -89,7 +89,7 @@ interface EventInterface
     public function clearTags();
 
     /**
-     * Get tag
+     * Get tags
      *
      * @return TagInterface[]
      */
