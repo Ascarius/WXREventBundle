@@ -99,12 +99,19 @@ interface EventManagerInterface extends BaseManagerInterface
     public function countByTag(TagInterface $tag);
 
     /**
+     * Find closest event
+     *
+     * @return EventInterface|null
+     */
+    public function findClosest();
+
+    /**
      * Find previous/older event
      *
      * @param EventInterface $event
      * @return EventInterface|null
      */
-    public function findPrevious(EventInterface $event);
+    public function findPreviousOf(EventInterface $event);
 
     /**
      * Find next/newer event
@@ -112,5 +119,5 @@ interface EventManagerInterface extends BaseManagerInterface
      * @param EventInterface $event
      * @return EventInterface|null
      */
-    public function findNext(EventInterface $event);
+    public function findNextOf(EventInterface $event);
 }

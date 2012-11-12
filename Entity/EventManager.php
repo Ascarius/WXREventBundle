@@ -194,7 +194,30 @@ class EventManager extends BaseManager implements EventManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findPrevious(EventInterface $post)
+    public function findClosest()
+    {
+        $now = new \DateTime();
+
+        $event = $this->findBy(
+            array(
+                'enabled' => true,
+                'startAt' => array('>', $now->format('Y-m-d H:i:s'))
+            ),
+            null,
+            1
+        );
+
+        if ($event) {
+            return $event[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findPreviousOf(EventInterface $post)
     {
         $posts = $this->findBy(
             array(
@@ -216,7 +239,7 @@ class EventManager extends BaseManager implements EventManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findNext(EventInterface $post)
+    public function findNextOf(EventInterface $post)
     {
         $posts = $this->findBy(
             array(
@@ -258,6 +281,18 @@ class EventManager extends BaseManager implements EventManagerInterface
             ->leftJoin($this->alias.'.categories', 'cat')
             ->leftJoin($this->alias.'.tags', 'tag')
         ;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildWhereClause(QueryBuilder $qb, array $criteria)
+    {
+        if (!array_key_exists('enabled', $criteria)) {
+            $criteria['enabled'] = true;
+        }
+
+        return parent::buildWhereClause($qb, $criteria);
     }
 
     /**

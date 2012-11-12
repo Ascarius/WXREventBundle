@@ -43,8 +43,8 @@ class EventsController extends Controller
         $event = $eventManager->findOneBySlug($slug);
 
         if ($event) {
-            $previous = $eventManager->findPrevious($event);
-            $next = $eventManager->findNext($event);
+            $previous = $eventManager->findPreviousOf($event);
+            $next = $eventManager->findNextOf($event);
         } else {
             $previous = null;
             $next = null;
