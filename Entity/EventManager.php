@@ -277,10 +277,23 @@ class EventManager extends BaseManager implements EventManagerInterface
     {
         parent::buildFromClause($qb, $criteria);
 
-        $qb
-            ->leftJoin($this->alias.'.categories', 'cat')
-            ->leftJoin($this->alias.'.tags', 'tag')
-        ;
+        $needJoins = false;
+
+        foreach (array('_search', 'cat', 'tag') as $needle) {
+            foreach ($criteria as $criterium => $value) {
+                if (false !== strpos($criterium, $needle)) {
+                    $needJoins = true;
+                    break 2;
+                }
+            }
+        }
+
+        if ($needJoins) {
+            $qb
+                ->leftJoin($this->alias.'.categories', 'cat')
+                ->leftJoin($this->alias.'.tags', 'tag')
+            ;
+        }
     }
 
     /**
