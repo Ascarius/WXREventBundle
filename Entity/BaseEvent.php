@@ -31,7 +31,6 @@ abstract class BaseEvent extends Event
     public function addCategory(CategoryInterface $category)
     {
         if (! $this->hasCategory($category)) {
-            $category->addEvent($this);
             $this->categories->add($category);
         }
 
@@ -44,7 +43,6 @@ abstract class BaseEvent extends Event
     public function removeCategory(CategoryInterface $category)
     {
         if ($this->hasCategory($category)) {
-            $category->removeEvent($this);
             $this->categories->removeElement($category);
         }
 
@@ -56,10 +54,6 @@ abstract class BaseEvent extends Event
      */
     public function clearCategories()
     {
-        foreach ($this->categories as $category) {
-            $category->removeEvent($this);
-        }
-
         $this->categories = new ArrayCollection();
 
         return $this;
@@ -79,7 +73,6 @@ abstract class BaseEvent extends Event
     public function addTag(TagInterface $tag)
     {
         if (! $this->hasTag($tag)) {
-            $tag->addEvent($this);
             $this->tags->add($tag);
         }
 
@@ -92,7 +85,6 @@ abstract class BaseEvent extends Event
     public function removeTag(TagInterface $tag)
     {
         if ($this->hasTag($tag)) {
-            $tag->removeEvent($this);
             $this->tags->removeElement($tag);
         }
 
@@ -104,10 +96,6 @@ abstract class BaseEvent extends Event
      */
     public function clearTags()
     {
-        foreach ($this->tags as $tag) {
-            $tag->removeEvent($this);
-        }
-
         $this->tags = new ArrayCollection();
 
         return $this;

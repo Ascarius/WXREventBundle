@@ -105,7 +105,6 @@ abstract class Event implements EventInterface
     public function addCategory(CategoryInterface $category)
     {
         if (! $this->hasCategory($category)) {
-            $category->addEvent($this);
             $this->categories[] = $category;
         }
 
@@ -118,7 +117,6 @@ abstract class Event implements EventInterface
     public function removeCategory(CategoryInterface $category)
     {
         if (false !== ($key = array_search($category, $this->categories, true))) {
-            $category->removeEvent($this);
             unset($this->categories[$key]);
         }
 
@@ -130,10 +128,6 @@ abstract class Event implements EventInterface
      */
     public function clearCategories()
     {
-        foreach ($this->categories as $category) {
-            $category->removeEvent($this);
-        }
-
         $this->categories = array();
 
         return $this;
@@ -176,7 +170,6 @@ abstract class Event implements EventInterface
     public function addTag(TagInterface $tag)
     {
         if (! $this->hasTag($tag)) {
-            $tag->addEvent($this);
             $this->tags[] = $tag;
         }
 
@@ -189,7 +182,6 @@ abstract class Event implements EventInterface
     public function removeTag(TagInterface $tag)
     {
         if (false !== ($key = array_search($tag, $this->tags, true))) {
-            $tag->removeEvent($this);
             unset($this->tags[$key]);
         }
 
@@ -201,10 +193,6 @@ abstract class Event implements EventInterface
      */
     public function clearTags()
     {
-        foreach ($this->tags as $tag) {
-            $tag->removeEvent($this);
-        }
-
         $this->tags = array();
 
         return $this;

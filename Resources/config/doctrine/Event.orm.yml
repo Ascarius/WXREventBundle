@@ -14,7 +14,6 @@ WXR\EventBundle\Entity\Event:
     manyToMany:
         categories:
             targetEntity: WXR\EventBundle\Entity\Category
-            inversedBy: events
             orderBy: { position: ASC, name: ASC }
             joinTable:
                 name: wxr_event_event_category
@@ -26,13 +25,12 @@ WXR\EventBundle\Entity\Event:
                         referencedColumnName: id
         tags:
             targetEntity: WXR\EventBundle\Entity\Tag
-            inversedBy: events
             orderBy: { name: ASC }
             joinTable:
                 name: wxr_event_event_tag
                 joinColumns:
-                    post_id:
+                    event_id:
                         referencedColumnName: id
                 inverseJoinColumns:
-                    category_id:
+                    tag_id:
                         referencedColumnName: id

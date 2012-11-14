@@ -1,12 +1,6 @@
 WXR\EventBundle\Entity\Tag:
     type: entity
     table: wxr_event_tag
-    manyToMany:
-        events:
-            targetEntity: WXR\EventBundle\Entity\Event
-            mappedBy: tags
-            fetch: EXTRA_LAZY
-            orderBy: { startAt: DESC }
     uniqueConstraints:
         UNIQ_slug:
             columns: [ slug ]
