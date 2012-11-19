@@ -1,6 +1,6 @@
-WXR\EventBundle\Entity\Tag:
+Application\WXR\EventBundle\Entity\Category:
     type: entity
-    table: wxr_event_tag
+    table: wxr_event_category
     uniqueConstraints:
         UNIQ_slug:
             columns: [ slug ]

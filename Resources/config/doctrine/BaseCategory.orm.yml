@@ -1,0 +1,2 @@
+WXR\EventBundle\Entity\BaseCategory:
+    type: mappedSuperclass

@@ -4,6 +4,10 @@ WXREventBundle
 Installation
 ------------
 
+### SonataEasyExtendsBundle
+
+-   [SonataEasyExtendsBundle documentation](http://sonata-project.org/bundles/easy-extends/master/doc/index.html)
+
 ### DoctrineExtensions
 
 Event need sluggable behavior to build unique slug from title.
@@ -24,14 +28,20 @@ wxr_event:
     translation_domain: WXREventBundle
     event:
         class:   WXR\EventBundle\Entity\Event
-        admin:   wxr_event.event.admin.default
         manager: wxr_event.event.manager.default
+        admin:
+            class: WXR\EventBundle\Admin\Entity\EventAdmin
+            controller: SonataAdminBundle:CRUD
     category:
         class:   WXR\EventBundle\Entity\Category
-        admin:   wxr_event.category.admin.default
         manager: wxr_event.category.manager.default
+        admin:
+            class: WXR\EventBundle\Admin\Entity\CategoryAdmin
+            controller: SonataAdminBundle:CRUD
     tag:
         class:   WXR\EventBundle\Entity\Tag
-        admin:   wxr_event.tag.admin.default
         manager: wxr_event.tag.manager.default
+        admin:
+            class: WXR\EventBundle\Admin\Entity\TagAdmin
+            controller: SonataAdminBundle:CRUD
 ```

@@ -7,8 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-
-abstract class EventAdmin extends Admin
+class EventAdmin extends Admin
 {
     /**
      * {@inheritDoc}
@@ -37,18 +36,6 @@ abstract class EventAdmin extends Admin
                 ))
             ->end()
             ->with('form.group_categories')
-                ->add('categories', 'sonata_type_model', array(
-                    'class' => 'WXR\\EventBundle\\Entity\\Category',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'required' => false
-                ))
-                ->add('tags', 'sonata_type_model', array(
-                    'class' => 'WXR\\EventBundle\\Entity\\Tag',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'required' => false
-                ))
             ->end()
             ->with('form.group_options')
                 ->add('enabled', null, array(

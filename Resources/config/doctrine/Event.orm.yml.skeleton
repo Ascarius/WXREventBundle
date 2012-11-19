@@ -1,4 +1,4 @@
-WXR\EventBundle\Entity\Event:
+Application\WXR\EventBundle\Entity\Event:
     type: entity
     table: wxr_event_event
     indexes:
@@ -13,7 +13,7 @@ WXR\EventBundle\Entity\Event:
             columns: [ slug ]
     manyToMany:
         categories:
-            targetEntity: WXR\EventBundle\Entity\Category
+            targetEntity: Application\WXR\EventBundle\Entity\Category
             orderBy: { position: ASC, name: ASC }
             joinTable:
                 name: wxr_event_event_category
@@ -24,7 +24,7 @@ WXR\EventBundle\Entity\Event:
                     category_id:
                         referencedColumnName: id
         tags:
-            targetEntity: WXR\EventBundle\Entity\Tag
+            targetEntity: Application\WXR\EventBundle\Entity\Tag
             orderBy: { name: ASC }
             joinTable:
                 name: wxr_event_event_tag

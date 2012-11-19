@@ -23,47 +23,19 @@ class WXREventExtension extends Extension
 
         $container->setParameter('wxr_event.translation_domain', $config['translation_domain']);
 
-        $container->setParameter('wxr_event.event.class', $config['event']['class']);
-        $container->setAlias('wxr_event.event.admin',     $config['event']['admin']);
-        $container->setAlias('wxr_event.event.manager',   $config['event']['manager']);
+        $container->setAlias('wxr_event.event.manager', $config['event']['manager']);
+        $container->setParameter('wxr_event.event.admin.class', $config['event']['admin']['class']);
+        $container->setParameter('wxr_event.event.admin.controller', $config['event']['admin']['controller']);
 
-        $container->setParameter('wxr_event.category.class', $config['category']['class']);
-        $container->setAlias('wxr_event.category.admin',     $config['category']['admin']);
         $container->setAlias('wxr_event.category.manager',   $config['category']['manager']);
+        $container->setParameter('wxr_event.category.admin.class', $config['category']['admin']['class']);
+        $container->setParameter('wxr_event.category.admin.controller', $config['category']['admin']['controller']);
 
-        $container->setParameter('wxr_event.tag.class', $config['tag']['class']);
-        $container->setAlias('wxr_event.tag.admin',     $config['tag']['admin']);
         $container->setAlias('wxr_event.tag.manager',   $config['tag']['manager']);
+        $container->setParameter('wxr_event.tag.admin.class', $config['tag']['admin']['class']);
+        $container->setParameter('wxr_event.tag.admin.controller', $config['tag']['admin']['controller']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
-
-        if ($config['event']['admin'] == $defaultEventAdmin) {
-        	$definition = $container->getDefinition($defaultEventAdmin);
-        	$attributes = $definition->getTag('sonata.admin.disabled');
-        	$definition->clearTag('sonata.admin.disabled');
-        	$definition->addTag('sonata.admin', $attributes[0]);
-        } else {
-        	$container->removeDefinition($defaultEventAdmin);
-        }
-
-        if ($config['category']['admin'] == $defaultCategoryAdmin) {
-        	$definition = $container->getDefinition($defaultCategoryAdmin);
-        	$attributes = $definition->getTag('sonata.admin.disabled');
-        	$definition->clearTag('sonata.admin.disabled');
-        	$definition->addTag('sonata.admin', $attributes[0]);
-        } else {
-        	$container->removeDefinition($defaultCategoryAdmin);
-        }
-
-        if ($config['tag']['admin'] == $defaultTagAdmin) {
-        	$definition = $container->getDefinition($defaultTagAdmin);
-        	$attributes = $definition->getTag('sonata.admin.disabled');
-        	$definition->clearTag('sonata.admin.disabled');
-        	$definition->addTag('sonata.admin', $attributes[0]);
-        } else {
-        	$container->removeDefinition($defaultTagAdmin);
-        }
-
     }
 }
