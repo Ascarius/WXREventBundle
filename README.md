@@ -27,19 +27,16 @@ WXREventBundle doesn't require any configuration.
 wxr_event:
     translation_domain: WXREventBundle
     event:
-        class:   WXR\EventBundle\Entity\Event
         manager: wxr_event.event.manager.default
         admin:
             class: WXR\EventBundle\Admin\Entity\EventAdmin
             controller: SonataAdminBundle:CRUD
     category:
-        class:   WXR\EventBundle\Entity\Category
         manager: wxr_event.category.manager.default
         admin:
             class: WXR\EventBundle\Admin\Entity\CategoryAdmin
             controller: SonataAdminBundle:CRUD
     tag:
-        class:   WXR\EventBundle\Entity\Tag
         manager: wxr_event.tag.manager.default
         admin:
             class: WXR\EventBundle\Admin\Entity\TagAdmin

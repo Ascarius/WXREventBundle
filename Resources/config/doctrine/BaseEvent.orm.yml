@@ -8,10 +8,6 @@ WXR\EventBundle\Entity\BaseEvent:
     fields:
         enabled:
             type: boolean
-        slug:
-            length: 255
-            gedmo:
-                slug: { fields: [ title ] }
         title:
             length: 255
         content:

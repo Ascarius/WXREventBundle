@@ -11,6 +11,11 @@ Application\WXR\EventBundle\Entity\Event:
     uniqueConstraints:
         UNIQ_slug:
             columns: [ slug ]
+    fields:
+        slug:
+            length: 255
+            gedmo:
+                slug: { fields: [ title ] }
     manyToMany:
         categories:
             targetEntity: Application\WXR\EventBundle\Entity\Category

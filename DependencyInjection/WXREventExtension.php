@@ -14,10 +14,6 @@ class WXREventExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-    	$defaultEventAdmin = 'wxr_event.event.admin.default';
-    	$defaultCategoryAdmin = 'wxr_event.category.admin.default';
-    	$defaultTagAdmin = 'wxr_event.tag.admin.default';
-
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
@@ -27,11 +23,11 @@ class WXREventExtension extends Extension
         $container->setParameter('wxr_event.event.admin.class', $config['event']['admin']['class']);
         $container->setParameter('wxr_event.event.admin.controller', $config['event']['admin']['controller']);
 
-        $container->setAlias('wxr_event.category.manager',   $config['category']['manager']);
+        $container->setAlias('wxr_event.category.manager', $config['category']['manager']);
         $container->setParameter('wxr_event.category.admin.class', $config['category']['admin']['class']);
         $container->setParameter('wxr_event.category.admin.controller', $config['category']['admin']['controller']);
 
-        $container->setAlias('wxr_event.tag.manager',   $config['tag']['manager']);
+        $container->setAlias('wxr_event.tag.manager', $config['tag']['manager']);
         $container->setParameter('wxr_event.tag.admin.class', $config['tag']['admin']['class']);
         $container->setParameter('wxr_event.tag.admin.controller', $config['tag']['admin']['controller']);
 
