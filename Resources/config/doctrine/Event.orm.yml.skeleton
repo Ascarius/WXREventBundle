@@ -23,7 +23,7 @@ Application\WXR\EventBundle\Entity\Event:
             joinTable:
                 name: wxr_event_event_category
                 joinColumns:
-                    post_id:
+                    event_id:
                         referencedColumnName: id
                 inverseJoinColumns:
                     category_id:
