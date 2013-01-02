@@ -6,11 +6,14 @@ Application\WXR\EventBundle\Entity\Event:
             columns: [ enabled ]
         IDX_start_at:
             columns: [ start_at ]
-        IDX_end_at:
-            columns: [ end_at ]
     uniqueConstraints:
         UNIQ_slug:
             columns: [ slug ]
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
     fields:
         slug:
             length: 255

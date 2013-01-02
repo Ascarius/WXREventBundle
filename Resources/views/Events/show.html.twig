@@ -20,9 +20,9 @@
         <h1>{{ event.title }}</h1>
     </div>
 
-    <p><span class="label">{{ 'layout.start_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startAt|date('Y-m-d H:i') }}</p>
+    <p><span class="label">{{ 'layout.start_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startAt|format_datetime }}</p>
 
-    <p><span class="label">{{ 'layout.end_at'|trans({}, 'WXREventBundle') }}</span> {{ event.endAt|date('Y-m-d H:i') }}</p>
+    <p><span class="label">{{ 'layout.duration'|trans({}, 'WXREventBundle') }}</span> {{ event.duration|format_time }}</p>
 
     {% if event.categories is not empty %}
     <p><span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ event_macros.categories_list(event.categories) }}</p>

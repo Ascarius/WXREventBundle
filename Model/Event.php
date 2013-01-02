@@ -343,10 +343,35 @@ abstract class Event implements EventInterface
     /**
      * {@inheritDoc}
      */
+    public function setDuration(\DateTime $duration)
+    {
+        $interval = new \DateInterval(sprintf('P0000-00-00T%s:%s:%s',
+            $duration->format('H'),
+            $duration->format('i'),
+            $duration->format('s')
+        ));
+        $this->endAt = clone $this->getStartAt();
+        $this->endAt->add($interval);
+    
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDuration()
+    {
+        $interval = $this->getEndAt()->diff($this->getStartAt());
+        return \DateTime::createFromFormat('Y-m-d H:i:s', $interval->format('%Y-%M-%D %H:%I:%S'));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setEndAt(\DateTime $endAt)
     {
         $this->endAt = $endAt;
-
+    
         return $this;
     }
 
@@ -365,7 +390,7 @@ abstract class Event implements EventInterface
     {
         $now = new \DateTime();
 
-        return $this->endAt < $now;
+        return $this->getEndAt() < $now;
     }
 
     /**
@@ -383,7 +408,7 @@ abstract class Event implements EventInterface
     {
         $now = new \DateTime();
 
-        return $this->startAt < $now && $now < $this->endAt;
+        return $this->getStartAt() < $now && $now < $this->getEndAt();
     }
 
     /**

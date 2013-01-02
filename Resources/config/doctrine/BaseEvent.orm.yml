@@ -1,10 +1,5 @@
 WXR\EventBundle\Entity\BaseEvent:
     type: mappedSuperclass
-    id:
-        id:
-            type: integer
-            generator:
-                strategy: AUTO
     fields:
         enabled:
             type: boolean

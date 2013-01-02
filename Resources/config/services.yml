@@ -9,7 +9,7 @@ services:
     wxr_event.event.manager.default:
         class: WXR\EventBundle\Entity\EventManager
         arguments: [@doctrine.orm.entity_manager, %wxr_event.event.class%]
-        
+
     wxr_event.event.admin:
         class: %wxr_event.event.admin.class%
         arguments: [ ~, %wxr_event.event.class%, %wxr_event.event.admin.controller% ]

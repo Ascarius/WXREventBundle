@@ -200,6 +200,21 @@ interface EventInterface
     public function getStarted();
 
     /**
+     * Set duration
+     *
+     * @param \DateTime $duration
+     * @return EventInterface
+     */
+    public function setDuration(\DateTime $duration);
+    
+    /**
+     * Get duration
+     *
+     * @return \DateTime
+     */
+    public function getDuration();    
+
+    /**
      * Set endAt
      *
      * @param \DateTime $endAt

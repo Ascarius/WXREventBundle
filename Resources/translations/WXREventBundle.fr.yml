@@ -6,6 +6,7 @@ tags: Tags
 layout:
     start_at: Commence le
     end_at: Fini le
+    duration: Durée
     events: Evénements
     categories: Catégories
     tags: Tags
@@ -37,8 +38,9 @@ list:
     label_categories: Catégories
     label_tags: Tags
     label_start_at: Commence le
-    label_started: Commencé
+    label_duration: Durée
     label_end_at: Fini le
+    label_started: Commencé
     label_ended: Fini
     label_in_progress: En cours
 
@@ -61,6 +63,7 @@ form:
     group_options: Options
 
     label_start_at: Commence le
+    label_duration: Durée
     label_end_at: Fini le
     label_title: Titre
     label_content: Contenu

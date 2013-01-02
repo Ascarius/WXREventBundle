@@ -26,7 +26,7 @@ class EventAdmin extends Admin
         $formMapper
             ->with('form.group_general')
                 ->add('startAt')
-                ->add('endAt')
+                ->add('duration', 'time')
                 ->add('title')
                 ->add('content', null, array(
                     'attr' => array('data-wysiwyg' => true, 'rows' => 20)
@@ -67,13 +67,14 @@ class EventAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('enabled')
-            ->add('categories')
-            ->add('tags')
             ->add('startAt')
-            ->add('started', 'boolean')
+            ->add('duration', 'time')
             ->add('endAt')
+            ->add('started', 'boolean')
             ->add('ended', 'boolean')
             ->add('inProgress', 'boolean')
+            ->add('categories')
+            ->add('tags')
         ;
     }
 }
