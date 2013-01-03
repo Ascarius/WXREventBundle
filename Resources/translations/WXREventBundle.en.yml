@@ -49,7 +49,7 @@ list:
 filter:
 
     label_title: Title
-    label_content: Content
+    label_description: Description
     label_categories: Categories
     label_tags: Tags
     label_start_at: Start at
@@ -66,12 +66,11 @@ form:
     label_duration: Duration
     label_end_at: End at
     label_title: Title
-    label_content: Content
+    label_description: Description
     label_excerpt: Excerpt
     label_categories: Categories
     label_tags: Tags
     label_enabled: Enabled
 
     label_name: Name
-    label_description: Description
     label_position: Position
