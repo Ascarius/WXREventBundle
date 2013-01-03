@@ -28,7 +28,7 @@ class EventAdmin extends Admin
                 ->add('startAt')
                 ->add('duration', 'time')
                 ->add('title')
-                ->add('content', null, array(
+                ->add('description', null, array(
                     'attr' => array('data-wysiwyg' => true, 'rows' => 20)
                 ))
                 ->add('excerpt', null, array(
@@ -52,7 +52,7 @@ class EventAdmin extends Admin
     {
         $datagridMapper
             ->add('title')
-            ->add('content')
+            ->add('description')
             ->add('categories')
             ->add('tags')
             ->add('startAt')

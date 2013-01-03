@@ -37,7 +37,7 @@ abstract class Event implements EventInterface
     /**
      * @var string
      */
-    protected $content;
+    protected $description;
 
     /**
      * @var string
@@ -271,19 +271,19 @@ abstract class Event implements EventInterface
     /**
      * {@inheritDoc}
      */
-    public function setContent($content)
+    public function setDescription($description)
     {
-        $this->content = $content;
-
+        $this->description = $description;
+    
         return $this;
     }
-
+    
     /**
      * {@inheritDoc}
      */
-    public function getContent()
+    public function getDescription()
     {
-        return $this->content;
+        return $this->description;
     }
 
     /**

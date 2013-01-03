@@ -5,7 +5,7 @@ WXR\EventBundle\Entity\BaseEvent:
             type: boolean
         title:
             length: 255
-        content:
+        description:
             type: text
         excerpt:
             type: text

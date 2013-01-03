@@ -141,19 +141,19 @@ interface EventInterface
     public function getTitle();
 
     /**
-     * Set content
+     * Set description
      *
-     * @param string $content
+     * @param string $description
      * @return EventInterface
      */
-    public function setContent($content);
-
+    public function setDescription($description);
+    
     /**
-     * Get content
+     * Get description
      *
      * @return string
      */
-    public function getContent();
+    public function getDescription();
 
     /**
      * Set excerpt
