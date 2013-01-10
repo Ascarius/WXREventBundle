@@ -17,7 +17,10 @@ class EventManager extends BaseManager implements EventManagerInterface
      */
     public function findOneBySlug($slug)
     {
-        return $this->findOneBy(array('slug' => $slug));
+        return $this->findOneBy(array(
+            'slug' => $slug
+            'enabled' => true
+        ));
     }
 
     /**
@@ -294,18 +297,6 @@ class EventManager extends BaseManager implements EventManagerInterface
                 ->leftJoin($this->alias.'.tags', 'tag')
             ;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function buildWhereClause(QueryBuilder $qb, array $criteria)
-    {
-        if (!array_key_exists('enabled', $criteria)) {
-            $criteria['enabled'] = true;
-        }
-
-        return parent::buildWhereClause($qb, $criteria);
     }
 
     /**
