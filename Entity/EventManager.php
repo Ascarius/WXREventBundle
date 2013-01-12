@@ -18,7 +18,7 @@ class EventManager extends BaseManager implements EventManagerInterface
     public function findOneBySlug($slug)
     {
         return $this->findOneBy(array(
-            'slug' => $slug
+            'slug' => $slug,
             'enabled' => true
         ));
     }
@@ -33,7 +33,7 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->findBy(
             array(
                 'enabled' => true,
-                'startAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'startsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
             null,
             $limit,
@@ -51,7 +51,7 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->countBy(
             array(
                 'enabled' => true,
-                'startAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'startsAt' => array('>', $now->format('Y-m-d H:i:s'))
             )
         );
     }
@@ -66,8 +66,8 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->findBy(
             array(
                 'enabled' => true,
-                'startAt' => array('<', $now->format('Y-m-d H:i:s')),
-                'endAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'startsAt' => array('<', $now->format('Y-m-d H:i:s')),
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
             null,
             $limit,
@@ -85,8 +85,8 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->countBy(
             array(
                 'enabled' => true,
-                'startAt' => array('<', $now->format('Y-m-d H:i:s')),
-                'endAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'startsAt' => array('<', $now->format('Y-m-d H:i:s')),
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             )
         );
     }
@@ -101,7 +101,7 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->findBy(
             array(
                 'enabled' => true,
-                'endAt' => array('<', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('<', $now->format('Y-m-d H:i:s'))
             ),
             null,
             $limit,
@@ -119,7 +119,7 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->countBy(
             array(
                 'enabled' => true,
-                'endAt' => array('<', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('<', $now->format('Y-m-d H:i:s'))
             )
         );
     }
@@ -135,7 +135,7 @@ class EventManager extends BaseManager implements EventManagerInterface
             array(
                 'cat.id' => $category->getId(),
                 'enabled' => true,
-                'endAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
             null,
             $limit,
@@ -154,7 +154,7 @@ class EventManager extends BaseManager implements EventManagerInterface
             array(
                 'cat.id' => $category->getId(),
                 'enabled' => true,
-                'endAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             )
         );
     }
@@ -170,7 +170,7 @@ class EventManager extends BaseManager implements EventManagerInterface
             array(
                 'tag.id' => $tag->getId(),
                 'enabled' => true,
-                'endAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
             null,
             $limit,
@@ -189,7 +189,7 @@ class EventManager extends BaseManager implements EventManagerInterface
             array(
                 'tag.id' => $tag->getId(),
                 'enabled' => true,
-                'endAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             )
         );
     }
@@ -204,7 +204,7 @@ class EventManager extends BaseManager implements EventManagerInterface
         $event = $this->findBy(
             array(
                 'enabled' => true,
-                'startAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'startsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
             null,
             1
@@ -225,10 +225,10 @@ class EventManager extends BaseManager implements EventManagerInterface
         $posts = $this->findBy(
             array(
                 'enabled' => true,
-                'startAt' => array('<=', $post->getStartAt()->format('Y-m-d H:i:s')),
+                'startsAt' => array('<=', $post->getstartsAt()->format('Y-m-d H:i:s')),
                 'id' => array('!=', $post->getId())
             ),
-            array('startAt' => 'DESC'),
+            array('startsAt' => 'DESC'),
             1
         );
 
@@ -247,10 +247,10 @@ class EventManager extends BaseManager implements EventManagerInterface
         $posts = $this->findBy(
             array(
                 'enabled' => true,
-                'startAt' => array('>=', $post->getStartAt()->format('Y-m-d H:i:s')),
+                'startsAt' => array('>=', $post->getstartsAt()->format('Y-m-d H:i:s')),
                 'id' => array('!=', $post->getId())
             ),
-            array('startAt' => 'ASC'),
+            array('startsAt' => 'ASC'),
             1
         );
 
@@ -259,6 +259,68 @@ class EventManager extends BaseManager implements EventManagerInterface
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findArchivedMonths()
+    {
+        $starts = $this->findArchivedStarts();
+        $months = array();
+        $lastMonth = null;
+
+        foreach ($starts as $start) {
+            $month = $start;
+            if (null === $lastMonth || $month->format('Y-m') != $lastMonth->format('Y-m')) {
+                $months[] = $month;
+                $lastMonth = $month;
+            }
+        }
+
+        return $months;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findArchivedYears()
+    {
+        $starts = $this->findArchivedStarts();
+        $years = array();
+        $lastYear = null;
+
+        foreach ($starts as $start) {
+            $year = (int) $start->format('Y');
+            if (null === $lastYear || $year != $lastYear) {
+                $years[] = $year;
+                $lastYear = $year;
+            }
+        }
+
+        return $years;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findArchivedStarts()
+    {
+        $dql = 'SELECT DISTINCT e.startsAt '
+             . 'FROM '.$this->class.' e '
+             . 'WHERE e.enabled = :enabled '
+             . 'AND e.startsAt < :now '
+             . 'ORDER BY e.startsAt DESC';
+
+        $query = $this->em->createQuery($dql);
+
+        $query->setParameter('enabled', true);
+        $query->setParameter('now', date('Y-m-d H:i:s'));
+
+        $result = $query->getResult();
+        $starts = array_map('current', $result);
+
+        return $starts;
     }
 
     /**
@@ -305,7 +367,7 @@ class EventManager extends BaseManager implements EventManagerInterface
     protected function buildOrderClause(QueryBuilder $qb, array $orderBy = null)
     {
         if (!$orderBy) {
-            $orderBy = array('startAt' => 'DESC');
+            $orderBy = array('startsAt' => 'DESC');
         }
 
         parent::buildOrderClause($qb, $orderBy);

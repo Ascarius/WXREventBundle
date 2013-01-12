@@ -14,7 +14,7 @@ class EventAdmin extends Admin
      */
     protected $datagridValues = array(
         '_page' => 1,
-        '_sort_by' => 'startAt',
+        '_sort_by' => 'startsAt',
         '_sort_order' => 'DESC'
     );
 
@@ -25,7 +25,7 @@ class EventAdmin extends Admin
     {
         $formMapper
             ->with('form.group_general')
-                ->add('startAt')
+                ->add('startsAt')
                 ->add('duration', 'time')
                 ->add('title')
                 ->add('description', null, array(
@@ -55,7 +55,7 @@ class EventAdmin extends Admin
             ->add('description')
             ->add('categories')
             ->add('tags')
-            ->add('startAt')
+            ->add('startsAt')
         ;
     }
 
@@ -67,9 +67,9 @@ class EventAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('enabled')
-            ->add('startAt')
+            ->add('startsAt')
             ->add('duration', 'time')
-            ->add('endAt')
+            ->add('endsAt')
             ->add('started', 'boolean')
             ->add('ended', 'boolean')
             ->add('inProgress', 'boolean')

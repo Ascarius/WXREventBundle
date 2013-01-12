@@ -4,8 +4,8 @@ Application\WXR\EventBundle\Entity\Event:
     indexes:
         IDX_enabled:
             columns: [ enabled ]
-        IDX_start_at:
-            columns: [ start_at ]
+        IDX_starts_at:
+            columns: [ starts_at ]
     uniqueConstraints:
         UNIQ_slug:
             columns: [ slug ]

@@ -1,0 +1,15 @@
+{% if months|length > 0 %}
+<aside>
+    <h3>{{ 'layout.archives'|trans({}, 'WXREventBundle') }}</h3>
+    <ul class="archives months">
+    {% for month in months %}
+        {% if current == month %}
+        <li>{{ month|format_date('MMMM Y') }}</li>
+        {% else %}
+        <li><a href="{{ path('wxr_event_event_list', { m: month|date('Y-m') }) }}">{{ month|format_date('MMMM Y') }}</a></li>    
+        {% endif %}
+        
+    {% endfor %}
+    </ul>
+</aside>
+{% endif %}

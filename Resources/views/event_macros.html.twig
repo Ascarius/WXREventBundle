@@ -22,17 +22,23 @@
     {% for event in events %}
         <li>
             <h3><a href="{{ path('wxr_event_event_show', { slug: event.slug }) }}">{{ event.title }}</a></h3>
-            <p><span class="label">{{ 'layout.start_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startAt|date('Y-m-d H:i') }}</p>
-
+            <p class="metadata">
+                <span class="label">{{ 'layout.starts_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startsAt|format_datetime }}<br />
         {% if event.categories is not empty %}
-            <p><span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ _self.categories_list(event.categories) }}</p>
+                <span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ _self.categories_list(event.categories) }}<br />
         {% endif %}
+        {% if event.isEnded %}
+                <span class="label label-warning">{{ 'layout.ended'|trans({}, 'WXREventBundle') }}</span>
+        {% elseif event.isInProgress %}
+                <span class="label label-info">{{ 'layout.in_progress'|trans({}, 'WXREventBundle') }}</span>
+        {% endif %}
+            </p>
 
             <p>
         {% if event.excerpt %}
                 {{ event.excerpt }}
         {% else %}
-                {{ event.content|striptags|slice(0, 100) }} ...
+                {{ event.description|striptags|slice(0, 100) }} ...
         {% endif %}
             </p>
         {% if app.security.isGranted('ROLE_ADMIN') %}

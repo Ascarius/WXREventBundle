@@ -47,12 +47,12 @@ abstract class Event implements EventInterface
     /**
      * @var \DateTime
      */
-    protected $startAt;
+    protected $startsAt;
 
     /**
      * @var \DateTime
      */
-    protected $endAt;
+    protected $endsAt;
 
     /**
      * @var \DateTime
@@ -70,8 +70,8 @@ abstract class Event implements EventInterface
         $this->categories = array();
         $this->tags = array();
         $this->enabled = true;
-        $this->startAt = new \DateTime();
-        $this->endAt = new \DateTime();
+        $this->startsAt = new \DateTime();
+        $this->endsAt = new \DateTime();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
@@ -307,9 +307,9 @@ abstract class Event implements EventInterface
     /**
      * {@inheritDoc}
      */
-    public function setStartAt(\DateTime $startAt)
+    public function setStartsAt(\DateTime $startsAt)
     {
-        $this->startAt = $startAt;
+        $this->startsAt = $startsAt;
 
         return $this;
     }
@@ -317,9 +317,9 @@ abstract class Event implements EventInterface
     /**
      * {@inheritDoc}
      */
-    public function getStartAt()
+    public function getStartsAt()
     {
-        return $this->startAt;
+        return $this->startsAt;
     }
 
     /**
@@ -329,7 +329,7 @@ abstract class Event implements EventInterface
     {
         $now = new \DateTime();
 
-        return $this->startAt < $now;
+        return $this->startsAt < $now;
     }
 
     /**
@@ -350,8 +350,8 @@ abstract class Event implements EventInterface
             $duration->format('i'),
             $duration->format('s')
         ));
-        $this->endAt = clone $this->getStartAt();
-        $this->endAt->add($interval);
+        $this->endsAt = clone $this->getStartsAt();
+        $this->endsAt->add($interval);
     
         return $this;
     }
@@ -361,16 +361,16 @@ abstract class Event implements EventInterface
      */
     public function getDuration()
     {
-        $interval = $this->getEndAt()->diff($this->getStartAt());
+        $interval = $this->getEndsAt()->diff($this->getStartsAt());
         return \DateTime::createFromFormat('Y-m-d H:i:s', $interval->format('%Y-%M-%D %H:%I:%S'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setEndAt(\DateTime $endAt)
+    public function setEndsAt(\DateTime $endsAt)
     {
-        $this->endAt = $endAt;
+        $this->endsAt = $endsAt;
     
         return $this;
     }
@@ -378,9 +378,9 @@ abstract class Event implements EventInterface
     /**
      * {@inheritDoc}
      */
-    public function getEndAt()
+    public function getEndsAt()
     {
-        return $this->endAt;
+        return $this->endsAt;
     }
 
     /**
@@ -390,7 +390,7 @@ abstract class Event implements EventInterface
     {
         $now = new \DateTime();
 
-        return $this->getEndAt() < $now;
+        return $this->getEndsAt() < $now;
     }
 
     /**
@@ -408,7 +408,7 @@ abstract class Event implements EventInterface
     {
         $now = new \DateTime();
 
-        return $this->getStartAt() < $now && $now < $this->getEndAt();
+        return $this->getStartsAt() < $now && $now < $this->getEndsAt();
     }
 
     /**

@@ -9,9 +9,20 @@ class EventsController extends Controller
     public function listAction($page = 1)
     {
         $request = $this->getRequest();
+
+        $month = $request->get('m') ? new \DateTime($request->get('m')) : null;
+
         $eventManager = $this->getEventManager();
 
-        $eventCount = $eventManager->countFutureOnes();
+        if ($month) {
+            $eventCount = $eventManager->countBy(array(
+                'enabled' => true,
+                'startsAt' => array('LIKE', $month->format('Y-m').'%')
+            ));
+        } else {
+            $eventCount = $eventManager->countFutureOnes();    
+        }
+        
         $limit = 10;
         $pageCount = $eventCount > 0 ? (int) ceil($eventCount / $limit) : 1;
 
@@ -23,17 +34,39 @@ class EventsController extends Controller
 
         $offset = ($page - 1) * $limit;
 
-        $events = $eventManager->findFutureOnes($limit, $offset);
-
-        $currents = $eventManager->findCurrentOnes();
+        if ($month) {
+            $events = $eventManager->findBy(
+                array(
+                    'enabled' => true,
+                    'startsAt' => array('LIKE', $month->format('Y-m').'%')
+                ),
+                null,
+                $limit,
+                $offset
+            );
+            $currents = array();
+        } else {
+            $events = $eventManager->findFutureOnes($limit, $offset);
+            $currents = $eventManager->findCurrentOnes();    
+        }
 
         return $this->render('WXREventBundle:Events:list.html.twig', compact(
             'currents',
             'events',
             'eventCount',
             'page',
-            'pageCount'
+            'pageCount',
+            'month'
         ));
+    }
+
+    public function monthsAction()
+    {
+        $request = $this->getRequest();
+        $months = $this->getEventManager()->findArchivedMonths();
+        $current = $request->get('m') ? new \DateTime($request->get('m')) : null;
+
+        return $this->render('WXREventBundle:Events:months_block.html.twig', compact('months', 'current'));
     }
 
     public function showAction($slug)

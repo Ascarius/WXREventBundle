@@ -1,6 +1,6 @@
 {% extends 'WXRCommonBundle::layout.html.twig' %}
 
-{% import 'WXREventBundle::event_macros.html.twig' as event_macros %}
+{% import 'WXREventBundle::event_macros.html.twig' as macros %}
 
 {##
  # @param WXR\EventBundle\Model\EventInterface[] events
@@ -15,26 +15,35 @@
 {% block content %}
 
     <div class="page-header">
-        <h1>{{ 'layout.events'|trans({}, 'WXREventBundle') }}</h1>
+        <h1>{{ 'layout.events'|trans({}, 'WXREventBundle') }}{% if month %} ({{ month|format_date('MMM Y') }}){% endif %}</h1>
     </div>
+
+    <div class="row">
+        <div class="span9">
 
     {% if page == 1 and currents %}
 
-    <div class="well">
-        {{ event_macros.events_list(currents) }}
-    </div>
+            <div class="well">
+                {{ macros.events_list(currents) }}
+            </div>
 
     {% endif %}
 
-    {{ event_macros.events_list(events) }}
+    {{ macros.events_list(events) }}
 
     {% if app.security.isGranted('ROLE_ADMIN') %}
-    <hr />
-    <div class="btn-toolbar">
-        <a href="{{ path('admin_wxr_event_event_create') }}" class="btn"><i class="icon-plus"></i> {{ 'layout.add'|trans({}, 'WXREventBundle') }}</a>
-    </div>
+            <hr />
+            <div class="btn-toolbar">
+                <a href="{{ path('admin_wxr_event_event_create') }}" class="btn"><i class="icon-plus"></i> {{ 'layout.add'|trans({}, 'WXREventBundle') }}</a>
+            </div>
     {% endif %}
 
-    {{ event_macros.pagination(page, pageCount) }}
+    {{ macros.pagination(page, pageCount) }}
+
+        </div>
+        <div class="span3">
+            {% render url('wxr_event_event_months') %}
+        </div>
+    </div>
 
 {% endblock %}

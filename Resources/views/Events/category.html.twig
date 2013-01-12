@@ -1,6 +1,6 @@
 {% extends 'WXRCommonBundle::layout.html.twig' %}
 
-{% import 'WXREventBundle::event_macros.html.twig' as event_macros %}
+{% import 'WXREventBundle::event_macros.html.twig' as macros %}
 
 {##
  # @param WXR\EventBundle\Model\CategoryInterface category
@@ -14,11 +14,10 @@
 
 {% block content %}
 
-    <div class="btn-toolbar">
-        <a href="{{ path('wxr_event_event_list') }}" class="btn"><i class="icon-list"></i> {{ 'layout.events'|trans({}, 'WXREventBundle') }}</a>
-    </div>
-
     <div class="page-header">
+        <div class="pull-right">
+            <a href="{{ path('wxr_event_event_list') }}" class="btn"><i class="icon-list"></i> {{ 'layout.events'|trans({}, 'WXREventBundle') }}</a>
+        </div>
         <h1>{{ 'layout.events'|trans({}, 'WXREventBundle') }} | {{ category.name }}</h1>
     </div>
 
@@ -28,8 +27,8 @@
     </div>
     {% endif %}
 
-    {{ event_macros.events_list(events) }}
+    {{ macros.events_list(events) }}
 
-    {{ event_macros.pagination(page, pageCount, { slug: category.slug }) }}
+    {{ macros.pagination(page, pageCount, { slug: category.slug }) }}
 
 {% endblock %}

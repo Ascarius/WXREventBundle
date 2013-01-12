@@ -4,12 +4,15 @@ categories: Catégories
 tags: Tags
 
 layout:
-    start_at: Commence le
-    end_at: Fini le
+    starts_at: Commence le
+    ends_at: Fini le
     duration: Durée
+    ended: Terminé
+    in_progress: En cours
     events: Evénements
     categories: Catégories
     tags: Tags
+    archives: Archives
     no_result: Aucun résultat
     add: Ajouter
     edit: Editer
@@ -37,9 +40,9 @@ list:
     label_enabled: Activé
     label_categories: Catégories
     label_tags: Tags
-    label_start_at: Commence le
+    label_starts_at: Commence le
     label_duration: Durée
-    label_end_at: Fini le
+    label_ends_at: Fini le
     label_started: Commencé
     label_ended: Fini
     label_in_progress: En cours
@@ -52,7 +55,7 @@ filter:
     label_description: Description
     label_categories: Catégories
     label_tags: Tags
-    label_start_at: Débût
+    label_starts_at: Débût
 
     label_name: Nom
 
@@ -62,9 +65,9 @@ form:
     group_categories: Catégories
     group_options: Options
 
-    label_start_at: Commence le
+    label_starts_at: Commence le
     label_duration: Durée
-    label_end_at: Fini le
+    label_ends_at: Fini le
     label_title: Titre
     label_description: Description
     label_excerpt: Extrait

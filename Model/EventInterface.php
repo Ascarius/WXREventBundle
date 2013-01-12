@@ -171,19 +171,19 @@ interface EventInterface
     public function getExcerpt();
 
     /**
-     * Set startAt
+     * Set startsAt
      *
-     * @param \DateTime $startAt
+     * @param \DateTime $startsAt
      * @return EventInterface
      */
-    public function setStartAt(\DateTime $startAt);
+    public function setStartsAt(\DateTime $startsAt);
 
     /**
-     * Get startAt
+     * Get startsAt
      *
      * @return \DateTime
      */
-    public function getStartAt();
+    public function getStartsAt();
 
     /**
      * Is started
@@ -215,19 +215,19 @@ interface EventInterface
     public function getDuration();    
 
     /**
-     * Set endAt
+     * Set endsAt
      *
-     * @param \DateTime $endAt
+     * @param \DateTime $endsAt
      * @return EventInterface
      */
-    public function setEndAt(\DateTime $endAt);
+    public function setEndsAt(\DateTime $endsAt);
 
     /**
-     * Get endAt
+     * Get endsAt
      *
      * @return \DateTime
      */
-    public function getEndAt();
+    public function getEndsAt();
 
     /**
      * Is ended

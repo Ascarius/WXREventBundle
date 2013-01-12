@@ -2,6 +2,10 @@ wxr_event_event_list:
     pattern: /list/{page}
     defaults: { _controller: 'WXREventBundle:Events:list', page: 1 }
 
+wxr_event_event_months:
+    pattern: /_esi/months
+    defaults: { _controller: WXREventBundle:Events:months }
+
 wxr_event_event_show:
     pattern: /show/{slug}
     defaults: { _controller: 'WXREventBundle:Events:show' }

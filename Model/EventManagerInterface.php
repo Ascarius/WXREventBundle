@@ -120,4 +120,25 @@ interface EventManagerInterface extends BaseManagerInterface
      * @return EventInterface|null
      */
     public function findNextOf(EventInterface $event);
+
+    /**
+     * Find distinct months
+     *
+     * @return \DateTime[]
+     */
+    public function findArchivedMonths();
+
+    /**
+     * Find distinct year
+     *
+     * @return integer[]
+     */
+    public function findArchivedYears();
+
+    /**
+     * Find distinct starts
+     *
+     * @return \DateTime[]
+     */
+    public function findArchivedStarts();
 }

@@ -1,7 +1,5 @@
 {% extends 'WXRCommonBundle::layout.html.twig' %}
 
-{% import 'WXREventBundle::event_macros.html.twig' as event_macros %}
-
 {##
  # @param WXR\EventBundle\Model\PostInterface[] events
  # @param WXR\EventBundle\Model\PostInterface previous
@@ -12,28 +10,28 @@
 
 {% block content %}
 
-    <div class="btn-toolbar">
-        <a href="{{ path('wxr_event_event_list') }}" class="btn"><i class="icon-list"></i> {{ 'layout.events'|trans({}, 'WXREventBundle') }}</a>
-    </div>
-
     <div class="page-header">
+        <div class="pull-right">
+            <a href="{{ path('wxr_event_event_list') }}" class="btn"><i class="icon-list"></i> {{ 'layout.events'|trans({}, 'WXREventBundle') }}</a>
+        </div>
         <h1>{{ event.title }}</h1>
     </div>
 
-    <p><span class="label">{{ 'layout.start_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startAt|format_datetime }}</p>
-
-    <p><span class="label">{{ 'layout.duration'|trans({}, 'WXREventBundle') }}</span> {{ event.duration|format_time }}</p>
-
+    <p class="metadata">
+        <span class="label">{{ 'layout.starts_at'|trans({}, 'WXREventBundle') }}</span> {{ event.startsAt|format_datetime }}<br />
+        <span class="label">{{ 'layout.duration'|trans({}, 'WXREventBundle') }}</span> {{ event.duration|format_time }}<br />
     {% if event.categories is not empty %}
-    <p><span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ event_macros.categories_list(event.categories) }}</p>
+        <span class="label">{{ 'layout.categories'|trans({}, 'WXREventBundle') }}</span> {{ _self.categories_list(event.categories) }}<br />
     {% endif %}
-
-    {% if event.tags is not empty %}
-    <p><span class="label">{{ 'layout.tags'|trans({}, 'WXREventBundle') }}</span> {{ event_macros.tags_list(event.tags) }}</p>
+    {% if event.isEnded %}
+        <span class="label label-warning">{{ 'layout.ended'|trans({}, 'WXREventBundle') }}</span>
+    {% elseif event.isInProgress %}
+        <span class="label label-info">{{ 'layout.in_progress'|trans({}, 'WXREventBundle') }}</span>
     {% endif %}
+    </p>
 
     <p>
-    {{ event.content|raw|nl2br }}
+    {{ event.description|raw|nl2br }}
     </p>
 
     {% if app.security.isGranted('ROLE_ADMIN') %}
