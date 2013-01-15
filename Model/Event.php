@@ -362,7 +362,7 @@ abstract class Event implements EventInterface
     public function getDuration()
     {
         $interval = $this->getEndsAt()->diff($this->getStartsAt());
-        return \DateTime::createFromFormat('Y-m-d H:i:s', $interval->format('%Y-%M-%D %H:%I:%S'));
+        return \DateTime::createFromFormat('H:i:s', $interval->format('%H:%I:%S'));
     }
 
     /**
