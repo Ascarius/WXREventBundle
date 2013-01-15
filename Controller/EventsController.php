@@ -40,7 +40,7 @@ class EventsController extends Controller
                     'enabled' => true,
                     'startsAt' => array('LIKE', $month->format('Y-m').'%')
                 ),
-                null,
+                array('startsAt' => 'ASC'),
                 $limit,
                 $offset
             );

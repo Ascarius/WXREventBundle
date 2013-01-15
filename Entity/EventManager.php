@@ -35,7 +35,9 @@ class EventManager extends BaseManager implements EventManagerInterface
                 'enabled' => true,
                 'startsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
-            null,
+            array(
+                'startsAt' => 'ASC'
+            ),
             $limit,
             $offset
         );
@@ -69,7 +71,9 @@ class EventManager extends BaseManager implements EventManagerInterface
                 'startsAt' => array('<', $now->format('Y-m-d H:i:s')),
                 'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
-            null,
+            array(
+                'startsAt' => 'ASC'
+            ),
             $limit,
             $offset
         );
@@ -103,7 +107,9 @@ class EventManager extends BaseManager implements EventManagerInterface
                 'enabled' => true,
                 'endsAt' => array('<', $now->format('Y-m-d H:i:s'))
             ),
-            null,
+            array(
+                'startsAt' => 'DESC'
+            ),
             $limit,
             $offset
         );
@@ -137,7 +143,9 @@ class EventManager extends BaseManager implements EventManagerInterface
                 'enabled' => true,
                 'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
-            null,
+            array(
+                'startsAt' => 'ASC'
+            ),
             $limit,
             $offset
         );
@@ -172,7 +180,9 @@ class EventManager extends BaseManager implements EventManagerInterface
                 'enabled' => true,
                 'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
-            null,
+            array(
+                'startsAt' => 'ASC'
+            ),
             $limit,
             $offset
         );
@@ -206,7 +216,9 @@ class EventManager extends BaseManager implements EventManagerInterface
                 'enabled' => true,
                 'startsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
-            null,
+            array(
+                'startsAt' => 'ASC'
+            ),
             1
         );
 
@@ -359,17 +371,5 @@ class EventManager extends BaseManager implements EventManagerInterface
                 ->leftJoin($this->alias.'.tags', 'tag')
             ;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function buildOrderClause(QueryBuilder $qb, array $orderBy = null)
-    {
-        if (!$orderBy) {
-            $orderBy = array('startsAt' => 'DESC');
-        }
-
-        parent::buildOrderClause($qb, $orderBy);
     }
 }
