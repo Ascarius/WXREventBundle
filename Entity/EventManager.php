@@ -33,7 +33,7 @@ class EventManager extends BaseManager implements EventManagerInterface
         return $this->findBy(
             array(
                 'enabled' => true,
-                'startsAt' => array('>', $now->format('Y-m-d H:i:s'))
+                'endsAt' => array('>', $now->format('Y-m-d H:i:s'))
             ),
             array(
                 'startsAt' => 'ASC'
